@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  lsc-fast-api:
+    image: python:3.12-alpine
+    restart: unless-stopped
+
+    working_dir: /code
+    volumes:
+      - .\\app:/code/app
+      - .\\main.py:/code/main.py
+      - .\\requirements.txt:/code/requirements.txt
+
+    command: >
+       sh -c "pip install --upgrade pip &&
+       pip install --no-cache-dir --upgrade -r requirements.txt &&
+       uvicorn app:app --reload"
+
+# docker compose down
+# docker compose up -d
